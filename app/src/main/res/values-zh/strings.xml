@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">网页变化跟踪</string>
+    <string name="action_settings">设置</string>
+    <string name="page_add">新增</string>
+    <string name="page_remove">删除</string>
+    <string name="page_refresh">刷新</string>
+    <string name="invalid_URL">请输入有效的URL</string>
+    <string name="last_modified">最后修改时间</string>
+    <string name="unknown">不明</string>
+</resources>
