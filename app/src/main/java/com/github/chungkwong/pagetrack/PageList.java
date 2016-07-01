@@ -1,7 +1,9 @@
 package com.github.chungkwong.pagetrack;
 
+import android.content.Intent;
 import android.database.DataSetObservable;
 import android.database.DataSetObserver;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -22,7 +24,7 @@ import java.util.Vector;
 
 public class PageList extends AppCompatActivity implements ListAdapter{
     private ListView pages;
-    private Button URLadd;
+    private Button URLadd,URLrefresh;
     private EditText URLin;
     private PageManager db;
     private Vector<Page> items;
@@ -32,11 +34,13 @@ public class PageList extends AppCompatActivity implements ListAdapter{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page_list);
         URLadd=(Button)findViewById(R.id.URLadd);
+        URLrefresh=(Button)findViewById(R.id.URLrefresh);
         URLin=(EditText)findViewById(R.id.URLin);
         pages=(ListView)findViewById(R.id.pages);
         db=new PageManager(getApplicationContext());
         items=new Vector<>();
         observers=new DataSetObservable();
+        initRefresh();
         initURLadd();
         initPages();
     }
@@ -44,6 +48,14 @@ public class PageList extends AppCompatActivity implements ListAdapter{
     protected void onDestroy() {
         super.onDestroy();
         db.close();
+    }
+    private void initRefresh(){
+        URLrefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refreshPages();
+            }
+        });
     }
     private void initURLadd(){
         URLadd.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +65,7 @@ public class PageList extends AppCompatActivity implements ListAdapter{
                     Page page=new Page(new URL(URLin.getText().toString()),getApplicationContext());
                     db.addPage(page);
                     addItem(page);
+                    refreshPage(page);
                 } catch (MalformedURLException e) {
                     new AlertDialog.Builder(getApplicationContext()).
                             setMessage(R.string.invalid_URL).show();
@@ -65,30 +78,45 @@ public class PageList extends AppCompatActivity implements ListAdapter{
         pages.setAdapter(this);
         for(final Page page:db.getPages()) {
             addItem(page);
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-                    if(page.updateLastModified(PageList.this))
-                        db.modifyPage(page);
-                }
-            });
+        }
+        refreshPages();
+    }
+    private void refreshPage(final Page page){
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                if(page.updateLastModified(PageList.this))
+                    db.modifyPage(page);
+            }
+        });
+    }
+    private void refreshPages(){
+        for(Page page:items) {
+            refreshPage(page);
         }
     }
-
     public void addItem(final Page page){
         items.add(page);
+        page.setClickable(true);
         page.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 db.removePage(page);
                 removeItem(page);
-                return false;
+                return true;
+            }
+        });
+        page.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Intent.ACTION_VIEW,Uri.parse(page.getURL().toExternalForm()));
+                startActivity(intent);
+
             }
         });
         observers.notifyChanged();
         observers.notifyInvalidated();
     }
-
     public void removeItem(Page page){
         items.remove(page);
         observers.notifyChanged();

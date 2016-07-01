@@ -5,6 +5,9 @@
     <string name="page_remove">Remove</string>
     <string name="page_refresh">Refresh</string>
     <string name="invalid_URL">Please enter a valid URL</string>
-    <string name="last_modified">Last modifed</string>
+    <string name="last_modified">Last modifed </string>
     <string name="unknown">Unknown</string>
+    <string name="url_hint">URL</string>
+    <string name="before">before</string>
+    <string name="after">after</string>
 </resources>
