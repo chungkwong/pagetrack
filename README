@@ -1,0 +1,42 @@
+PageTrack——Android平台下的网页变化跟踪器
+
+有一些感兴趣的网页不常更新？经常人手打开实属浪费时间，但不看又怕漏掉什么内容。为了摆脱这个两难局面，你需要PageTrack。只要把这些页面加入跟踪列表，以后它们再有什么变化你就一目了然了。
+
+使用说明
+想增加跟踪的网页：在下方文本框输入完整URL再点“新增”
+想知道网页变了没：绿色表示没发现变化、黄色表示发现变化、红色表示网页打不开、黑色表示你该换手机了（还有不支持MD5的手机？！）
+想打开已跟踪网页：短按一下想打开的网页条目
+想取消跟踪的网页：长按想删的条目
+想再检查最新变化：点“刷新”
+
+局限性
+（1）没有检查通过包含或AJAX提供内容的变化。
+（2）远没有达到产品级质量：错误处理考虑不周导致易崩溃、响应时间没保证、界面不好看、国际化语种少等。
+（3）目前没有提供后台自动进行检查并提示更新的功能，欢迎pull request。
+（4）由于PageTrack 0.0.2版起基于网页内容来判断变化，会自动获取页面并产生一些流量（除非页面由超大量文字组成否则可忽略不计）。
+
+版权所有2016 陈颂光 1m02math（at）126.com
+
+PageTrack是一个自由软件：你可以在自由软件基金会的GNU通用公共许可证版本3或（按你的意愿）更新版本的条款下重新发布和（或）修改它。
+
+PageTrack被发布是期望它会有用，但沒有任何任何担保，甚至沒有暗示的适销性或适应特定用途的保证。
+
+PageTrack--A web page tracker on Android
+
+Copyright (C) 2014 Chan Chung Kwong(1m02math@126.com)
+
+PageTrack is free software: you can redistribute it and/or modify it 
+under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, 
+or (at your option) any later version.
+
+PageTrack is distributed in the hope that it will be useful, 
+but WITHOUT ANY WARRANTY; without even the implied warranty of 
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+The default data files bundled with MathOCR are derive works of 
+amsfonts by American Mathematical Society，and are 
+distributed under SIL OPEN FONT LICENSE Version 1.1.
